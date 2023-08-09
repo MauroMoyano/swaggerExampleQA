@@ -29,7 +29,43 @@ export const getTask: Handler = (req, res) => {
 
     const taskFound = getConnection().get('tasks').find({id: req.params.id}).value()
 
-    if(!taskFound) return res.status(404).json({ msg: "Task was not Found" })
+    if (!taskFound) return res.status(404).json({msg: "Task was not Found"})
 
     res.json(taskFound)
+}
+
+export const count: Handler = (req, res) => {
+    const counted = getConnection()
+        .get('tasks')
+        .value()
+        .length;
+
+    res.json(counted);
+}
+
+export const deleteTask: Handler = (req, res) => {
+
+    const taskFound = getConnection().get('tasks').find({id: req.params.id}).value()
+
+    if (!taskFound) return res.status(404).json({msg: "Task was not Found for Delete"})
+
+    const deletedTask = getConnection()
+        .get('tasks')
+        .remove({id: req.params.id})
+        .write()
+    res.json(deletedTask);
+}
+
+export const updateTask: Handler = (req, res) => {
+
+    const taskFound = getConnection().get('tasks').find({id: req.params.id}).value()
+
+    if (!taskFound) return res.status(404).json({msg: "Task was not Found for Update"})
+
+    const updatedTask = getConnection()
+        .get('tasks')
+        .find({id: req.params.id})
+        .assign(req.body)
+        .write()
+    res.json(updatedTask);
 }

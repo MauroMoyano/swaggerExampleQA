@@ -1,14 +1,9 @@
 {
   "tasks": [
     {
-      "name": "Necesito crear una App",
-      "description": "utilizando React Native",
+      "name": "Tarea actualizada",
+      "description": "Tarea actualizada",
       "id": "gIBtGpM_G1Fvrn-aCsvlE"
-    },
-    {
-      "name": "Necesito crear un sitio web",
-      "description": "utilizando Dart",
-      "id": "85tWMqlj9mu6wSxO1B1bp"
     }
   ]
 }
