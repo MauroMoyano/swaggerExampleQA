@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTask = exports.getTasks = void 0;
+exports.updateTask = exports.deleteTask = exports.count = exports.getTask = exports.createTask = exports.getTasks = void 0;
 const db_1 = require("../db");
-const {nanoid} = require("nanoid");
-const {getConnection} = require("../db");
+const nanoid_1 = require("nanoid");
 const getTasks = (req, res) => {
     const data = (0, db_1.getConnection)().get('tasks').value();
     return res.json(data);
@@ -14,11 +13,52 @@ const createTask = (req, res) => {
     const newTask = {
         name,
         description,
-        id: nanoid()
+        id: (0, nanoid_1.nanoid)()
     };
-
-
-
-    res.json(newTask);
+    try {
+        (0, db_1.getConnection)().get('tasks').push(newTask).write();
+        res.json(newTask);
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
 };
 exports.createTask = createTask;
+const getTask = (req, res) => {
+    const taskFound = (0, db_1.getConnection)().get('tasks').find({ id: req.params.id }).value();
+    if (!taskFound)
+        return res.status(404).json({ msg: "Task was not Found" });
+    res.json(taskFound);
+};
+exports.getTask = getTask;
+const count = (req, res) => {
+    const counted = (0, db_1.getConnection)()
+        .get('tasks')
+        .value()
+        .length;
+    res.json(counted);
+};
+exports.count = count;
+const deleteTask = (req, res) => {
+    const taskFound = (0, db_1.getConnection)().get('tasks').find({ id: req.params.id }).value();
+    if (!taskFound)
+        return res.status(404).json({ msg: "Task was not Found for Delete" });
+    const deletedTask = (0, db_1.getConnection)()
+        .get('tasks')
+        .remove({ id: req.params.id })
+        .write();
+    res.json(deletedTask[0]);
+};
+exports.deleteTask = deleteTask;
+const updateTask = (req, res) => {
+    const taskFound = (0, db_1.getConnection)().get('tasks').find({ id: req.params.id }).value();
+    if (!taskFound)
+        return res.status(404).json({ msg: "Task was not Found for Update" });
+    const updatedTask = (0, db_1.getConnection)()
+        .get('tasks')
+        .find({ id: req.params.id })
+        .assign(req.body)
+        .write();
+    res.json(updatedTask);
+};
+exports.updateTask = updateTask;

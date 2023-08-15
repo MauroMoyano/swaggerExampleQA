@@ -1,24 +1,14 @@
 {
   "tasks": [
     {
-      "name": "Tarea actualizada",
-      "description": "Tarea actualizada",
+      "name": "My first task",
+      "description": "I have to do something.",
       "id": "gIBtGpM_G1Fvrn-aCsvlE"
     },
     {
       "name": "My second task for sample",
       "description": "I have to do something else.",
       "id": "tNaIyEnlU7ESy_hYOTbQg"
-    },
-    {
-      "name": "My second task for sample",
-      "description": "I have to do something else.",
-      "id": "v1QKjxh2u-hJ-LEEu6dac"
-    },
-    {
-      "name": "My second task for sample",
-      "description": "I have to do something else.",
-      "id": "QDn0vAuvMyUIJvyBrjyjW"
     }
   ]
 }

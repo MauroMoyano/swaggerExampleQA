@@ -53,7 +53,7 @@ export const deleteTask: Handler = (req, res) => {
         .get('tasks')
         .remove({id: req.params.id})
         .write()
-    res.json(deletedTask);
+    res.json(deletedTask[0]);
 }
 
 export const updateTask: Handler = (req, res) => {
